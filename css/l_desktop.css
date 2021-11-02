@@ -23,7 +23,7 @@ body{
 }
 .container{
     /* Variavel do CSS, responsavel pela mudança dinamica da width das cartas para dividir perfeitamente */
-    --num_cartas: 14;
+    --num_cartas: 6;
     --divisor: 2;
 
     width: calc((127px*var(--num_cartas))/var(--divisor));
