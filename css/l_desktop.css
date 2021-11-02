@@ -22,6 +22,9 @@ body{
     color: #75B79E;
 }
 .container{
+    display: none;
+}
+.container.jogando{
     /* Variavel do CSS, responsavel pela mudança dinamica da width das cartas para dividir perfeitamente */
     --num_cartas: 6;
     --divisor: 2;
@@ -55,4 +58,38 @@ body{
 
     display: block;
     margin: auto auto;
+}
+.menu_inicial{
+    width: 45%;
+    height: 300px;
+    background-color: white;
+
+    margin: 0 auto;
+    margin-top: 50px;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+
+    font-family: Roboto;
+    font-size: 56px;
+    font-style: normal; 
+    font-weight: 700;
+    line-height: 66px;
+    letter-spacing: -0.004em;
+    text-align: center;
+    color: #75B79E;
+}
+.iniciar{
+    width: 200px;
+    background-color: #A7E9AF;
+
+    border: 1px solid #99CEA8;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.escondido{
+    display: none;
 }

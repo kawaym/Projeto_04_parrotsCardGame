@@ -8,4 +8,9 @@
         flex-wrap: nowrap;
         flex-direction: column;
     }
+    .menu_inicial{
+        width: 75%;
+        
+        font-size: 40px;
+    }
 }
