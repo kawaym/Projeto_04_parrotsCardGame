@@ -1,0 +1,11 @@
+@media (max-width: 635px){
+    .container{
+        width: 100%;
+        height: auto;
+
+        margin-top: 50px;
+
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+}
