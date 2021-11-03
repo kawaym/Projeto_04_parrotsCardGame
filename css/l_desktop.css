@@ -44,6 +44,8 @@ body{
 .carta{
     width: 117px;
     height: 146px;
+    background-color: transparent;
+
     position: relative;
 }
 .face{
