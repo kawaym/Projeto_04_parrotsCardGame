@@ -20,5 +20,8 @@ function iniciarJogo(){
     menu.classList.add("escondido");
     jogo.classList.add("jogando");
     centralizarCartas(num_cartas);
-    criarJogo(num_cartas);
+    // criarJogo(num_cartas);
+}
+function pedirCarta(carta){
+    carta.classList.toggle("clicado");
 }
