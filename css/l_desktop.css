@@ -31,7 +31,7 @@ body{
 
     width: calc((127px*var(--num_cartas))/var(--divisor));
     max-width: 100%;
-    height: 300px;
+    height: auto;
 
     margin-top: 150px;
 
