@@ -47,7 +47,6 @@ function criarJogo(num_cartas){
         <img src="assets/${lista_gifs[num_atual]}parrot.gif"/>
         </div>
         </button>`];
-        console.log(carta);
         num_atual = num_atual + 1;
         lista_cartas.push(carta[0], carta[1]);
     }
@@ -55,7 +54,19 @@ function criarJogo(num_cartas){
     centralizarCartas(num_cartas);
 }
 function pedirCarta(carta){
-    carta.classList.toggle("clicado");
+    carta_desvirada = document.querySelector(".clicado");
+    cartas_desviradas = document.querySelectorAll(".clicado");
+    if (cartas_desviradas.length < 2){
+        carta.classList.toggle("clicado");
+    }
+    else if (cartas_desviradas.length === 2){
+       while(carta_desvirada !== null){
+            carta_desvirada.classList.remove("clicado");
+            carta_desvirada = document.querySelector(".clicado");
+        }
+        // carta.classList.toggle("clicado");
+    }
+    
 }
 function embaralharCartas(campo){
     let num_atual = 0;
