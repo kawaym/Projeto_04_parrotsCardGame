@@ -14,33 +14,59 @@ function iniciarJogo(){
     let menu = document.querySelector(".menu_inicial");
 
     let num_cartas = parseInt(prompt("Insira o número de cartas desejado(4-14):"));
-    while(num_cartas > 14 || num_cartas < 4 ||  num_cartas % 2 !== 0){
+    while(num_cartas > 14 || num_cartas < 4 || num_cartas % 2 !== 0){
         num_cartas = parseInt(prompt("Por favor, número par entre 4 e 14:"))
     }
     menu.classList.add("escondido");
     jogo.classList.add("jogando");
     criarJogo(num_cartas);
-    
 }
-function criarJogo(qte){
+function criarJogo(num_cartas){
+    let lista_gifs = ["bobross", "explody", "fiesta", "metal", "revertit", "triplets", "unicorn"];
+    lista_gifs.sort(comparador);    
     let num_atual = 0;
-    const gif = "metal";
-    const carta = `<button class="carta" onclick="pedirCarta(this)" data-identifier="card">
-    <div class="face frente" data-identifier="front-face">
-    <img  src="assets/front.png"/>
-    </div>
-    <div class="face costas" data-identifier="back-face">
-    <img src="assets/${gif}parrot.gif"/>
-    </div>
-    </button>`;
+    let carta = [];
+    let lista_cartas = [];
     let tabuleiro = document.querySelector(".container");
-    while (num_atual < qte){
-        tabuleiro.innerHTML = tabuleiro.innerHTML + carta;
+
+    while (num_atual < (num_cartas/2)){
+        carta = [`<button class="carta" onclick="pedirCarta(this)" data-identifier="card"  id="${num_atual}">
+        <div class="face frente" data-identifier="front-face">
+        <img  src="assets/front.png"/>
+        </div>
+        <div class="face costas" data-identifier="back-face">
+        <img src="assets/${lista_gifs[num_atual]}parrot.gif"/>
+        </div>
+        </button>`
+        ,
+        `<button class="carta" onclick="pedirCarta(this)" data-identifier="card"  id="${num_atual}">
+        <div class="face frente" data-identifier="front-face">
+        <img  src="assets/front.png"/>
+        </div>
+        <div class="face costas" data-identifier="back-face">
+        <img src="assets/${lista_gifs[num_atual]}parrot.gif"/>
+        </div>
+        </button>`];
+        console.log(carta);
         num_atual = num_atual + 1;
-        console.log("iteração");
+        lista_cartas.push(carta[0], carta[1]);
     }
-    centralizarCartas(qte);
+    tabuleiro.innerHTML = embaralharCartas(lista_cartas);
+    centralizarCartas(num_cartas);
 }
 function pedirCarta(carta){
     carta.classList.toggle("clicado");
+}
+function embaralharCartas(campo){
+    let num_atual = 0;
+    let tabuleiro = "";
+    campo.sort(comparador);
+    while(num_atual < campo.length){
+        tabuleiro = tabuleiro + campo[num_atual]
+        num_atual = num_atual + 1;
+    }
+    return tabuleiro;
+}
+function comparador() { 
+	return Math.random() - 0.5; 
 }
