@@ -63,7 +63,7 @@ body{
     top: 0;
 
     backface-visibility: hidden;
-    transition: all .5s;
+    transition: all 1s;
     transform-style: preserve-3d;
 }
 .costas{

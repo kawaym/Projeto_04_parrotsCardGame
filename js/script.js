@@ -1,3 +1,5 @@
+let pares_solucionados = 0;
+let jogadas = 0;
 function centralizarCartas(cartas){
     let container = document.querySelector(".container");
     //Divide em linhas de quantidade interativa conforme o tamanho do jogo
@@ -15,7 +17,7 @@ function iniciarJogo(){
 
     let num_cartas = parseInt(prompt("Insira o número de cartas desejado(4-14):"));
     while(num_cartas > 14 || num_cartas < 4 || num_cartas % 2 !== 0){
-        num_cartas = parseInt(prompt("Por favor, número par entre 4 e 14:"))
+        num_cartas = parseInt(prompt("Por favor, número par entre 4 e 14:"));
     }
     menu.classList.add("escondido");
     jogo.classList.add("jogando");
@@ -30,7 +32,7 @@ function criarJogo(num_cartas){
     let tabuleiro = document.querySelector(".container");
 
     while (num_atual < (num_cartas/2)){
-        carta = [`<button class="carta" onclick="pedirCarta(this)" data-identifier="card"  id="${num_atual}">
+        carta = [`<button class="carta em_jogo" onclick="pedirCarta(this)" data-identifier="card"  id="${num_atual}">
         <div class="face frente" data-identifier="front-face">
         <img  src="assets/front.png"/>
         </div>
@@ -39,7 +41,7 @@ function criarJogo(num_cartas){
         </div>
         </button>`
         ,
-        `<button class="carta" onclick="pedirCarta(this)" data-identifier="card"  id="${num_atual}">
+        `<button class="carta em_jogo" onclick="pedirCarta(this)" data-identifier="card"  id="${num_atual}">
         <div class="face frente" data-identifier="front-face">
         <img  src="assets/front.png"/>
         </div>
@@ -52,21 +54,35 @@ function criarJogo(num_cartas){
     }
     tabuleiro.innerHTML = embaralharCartas(lista_cartas);
     centralizarCartas(num_cartas);
+    pares_solucionados = document.querySelectorAll(".em_jogo").length;
 }
 function pedirCarta(carta){
-    carta_desvirada = document.querySelector(".clicado");
-    cartas_desviradas = document.querySelectorAll(".clicado");
-    if (cartas_desviradas.length < 2){
+    let contador = 0;
+    jogadas++;
+    let carta_desvirada = document.querySelector(".clicado.em_jogo");
+    let cartas_desviradas = document.querySelectorAll(".clicado.em_jogo");
+    if (cartas_desviradas.length < 2 && carta.classList[1] === "em_jogo"){
         carta.classList.toggle("clicado");
+        fimJogo();
     }
     else if (cartas_desviradas.length === 2){
-       while(carta_desvirada !== null){
-            carta_desvirada.classList.remove("clicado");
-            carta_desvirada = document.querySelector(".clicado");
+        if(cartas_desviradas[0].id === cartas_desviradas[1].id){
+            cartas_desviradas[0].classList.remove("em_jogo");
+            cartas_desviradas[1].classList.remove("em_jogo");
+            carta.classList.add("clicado");
+            pares_solucionados -= 2;
         }
-        // carta.classList.toggle("clicado");
+        setTimeout(function(){
+            while(contador < 2){
+                if (carta_desvirada.classList[1] === "em_jogo"){
+                    carta_desvirada.classList.remove("clicado")
+                }
+                contador++;
+                carta_desvirada = document.querySelector(".clicado.em_jogo");
+            }
+            carta.classList.add("clicado");
+        }, 1000);
     }
-    
 }
 function embaralharCartas(campo){
     let num_atual = 0;
@@ -80,4 +96,13 @@ function embaralharCartas(campo){
 }
 function comparador() { 
 	return Math.random() - 0.5; 
+}
+function fimJogo(){
+    let status = document.querySelectorAll(".em_jogo");
+    
+    setTimeout(function(){
+        if (status.length === 2){
+            alert(`Você ganhou em ${jogadas} jogadas. Parabéns!`);
+        }   
+    }, 500);
 }
